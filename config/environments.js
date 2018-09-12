@@ -1,7 +1,8 @@
 const path = require('path');
 
 const envPath = path.join(__dirname, `./environments/${process.env.NODE_ENV}.env`);
-require('dotenv').config({ path: envPath });
+require('dotenv')
+  .config({ path: envPath });
 
 /*
  * Project enviroment variables

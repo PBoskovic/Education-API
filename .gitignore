@@ -101,3 +101,6 @@ package-lock.json
 .vscode/
 config/environments/*
 !config/environments/test.env
+
+#default documentation folder name used by apidoc
+doc

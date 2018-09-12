@@ -36,6 +36,10 @@ module.exports = () => (err, req, res, next) => {
       error.errorCode = 0;
   }
 
+  if (error.status === 500) {
+    logError(err);
+  }
+
   if (environments.NODE_ENV === 'development') {
     error.stack = err.stack;
   }
