@@ -27,6 +27,7 @@
     "uuid": "^3.1.0"
   },
   "devDependencies": {
+    "apidoc": "^0.17.6",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^11.3.2",

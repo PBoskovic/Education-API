@@ -6,6 +6,7 @@ const expressJwt = require('express-jwt');
 const mongoose = require('mongoose');
 const ErrorHandler = require('./middlewares/errorHandling/errorHandler');
 const lusca = require('lusca');
+const path = require('path');
 const mongoDB = require('./config/database/mongodb/connection');
 const environments = require('./config/environments');
 const { name } = require('./package.json');
@@ -30,42 +31,51 @@ app.use(lusca.xframe('ALLOWALL'));
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
-app.use(expressJwt({ secret: environments.JWT_SECRET }));
+app.use(expressJwt({ secret: environments.JWT_SECRET })
+  .unless({
+    path: [
+      /\/apidoc.+/,
+    ]
+  }));
 
 // Creating the database connection
 mongoose.connect(mongoDB.connectionString(), {
-    reconnectTries: Number.MAX_VALUE,
-    useNewUrlParser: true,
+  reconnectTries: Number.MAX_VALUE,
+  useNewUrlParser: true,
 });
 
 mongoose.connection.on('connected', () => {
-    console.log(`Mongoose default connection open to ${mongoDB.connectionString()}`);
+  console.log(`Mongoose default connection open to ${mongoDB.connectionString()}`);
 });
 
 // CONNECTION EVENTS
 // If the connection throws an error
 mongoose.connection.on('error', (err) => {
-    console.log(`Mongoose default connection error: ${err}`);
+  console.log(`Mongoose default connection error: ${err}`);
 });
 
 // When the connection is disconnected
 mongoose.connection.on('disconnected', () => {
-    console.log('Mongoose default connection disconnected');
+  console.log('Mongoose default connection disconnected');
 });
 
 // When the connection is open
 mongoose.connection.on('open', () => {
-    console.log('Mongoose default connection is open');
+  console.log('Mongoose default connection is open');
 });
 
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', () => {
-    mongoose.connection.close(() => {
-        console.log('Mongoose default connection disconnected through app termination');
-        process.exit(0);
-    });
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
 });
 
+if (environments.NODE_ENV === 'development') {
+  require('./scripts/createDocs');
+  app.use('/apidoc', express.static(path.join(__dirname, './doc')));
+}
 
 app.use(ErrorHandler());
 
@@ -78,6 +88,3 @@ console.log('______________________________');
 
 app.listen(port);
 module.exports = app;
-/*TODO:
-    -APIDOC
- */
