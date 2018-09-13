@@ -8,12 +8,12 @@ const UserSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    required: true
+    required: true,
   },
   lastName: {
     type: String,
     trim: true,
-    required: true
+    required: true,
   },
   age: {
     type: String,
@@ -27,6 +27,7 @@ const UserSchema = new Schema({
     match: [emailRegExp, 'Invalid email address'],
     required: 'Please enter a valid email address',
   },
+
   // Temporarily set to String
   // Will be a certain ID reference when new models are introduced
   school: String,
@@ -35,11 +36,11 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-    select: false
+    select: false,
   },
   isActive: {
     type: Boolean,
-    default: true
+    default: true,
   },
   resetToken: String,
 }, {

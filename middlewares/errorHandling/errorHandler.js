@@ -31,6 +31,16 @@ module.exports = () => (err, req, res, next) => {
       error.message = 'Insufficient privileges';
       error.errorCode = 5;
       break;
+    case errorMessage.CREDENTIALS_ERROR:
+      error.status = 401;
+      error.message = 'Wrong credentials';
+      error.errorCode = 6;
+      break;
+    case errorMessage.UNAUTHORIZED_ERROR:
+      error.status = 401;
+      error.message = 'Invalid credentials';
+      error.errorCode = 7;
+      break;
     default:
       error.status = 500;
       error.message = 'Oops, an error occurred';
