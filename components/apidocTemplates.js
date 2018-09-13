@@ -53,3 +53,31 @@
  *       "errorCode": 5,
  *     }
  */
+
+/**
+ * @apiDefine CredentialsError
+ *
+ * @apiError (401) CredentialsError Error Code <code>8</code> Wrong credentials
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "message": "Wrong credentials",
+ *       "status": 401,
+ *       "errorCode": 6,
+ *     }
+ */
+
+/**
+ * @apiDefine UnauthorizedError
+ *
+ * @apiError (401) UnauthorizedError Error Code <code>12</code> Invalid credentials
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "message": "Invalid credentials",
+ *       "status": 401,
+ *       "errorCode": 7,
+ *     }
+ */

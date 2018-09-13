@@ -38,6 +38,9 @@ app.use(expressJwt({ secret: environments.JWT_SECRET })
   .unless({
     path: [
       '/api/v1/register',
+      '/api/v1/signin',
+      '/api/v1/forgot-password',
+      /\/api\/v1\/reset-password\/\w*/,
       /\/apidoc.+/,
     ],
   }));

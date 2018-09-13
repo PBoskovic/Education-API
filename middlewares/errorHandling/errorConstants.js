@@ -4,4 +4,6 @@ module.exports = {
   NOT_ACCEPTABLE: 'NotAcceptable',
   NOT_FOUND: 'NotFound',
   FORBIDDEN: 'Forbidden',
+  CREDENTIALS_ERROR: 'CredentialsError',
+  UNAUTHORIZED_ERROR: 'UnauthorizedError',
 };
