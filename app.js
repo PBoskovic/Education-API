@@ -18,6 +18,9 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
+// Application Routes
+const UserRoutes = require('./components/user/userRouter');
+
 app.use(cors());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,8 +37,9 @@ app.use(lusca.xssProtection(true));
 app.use(expressJwt({ secret: environments.JWT_SECRET })
   .unless({
     path: [
+      '/api/v1/register',
       /\/apidoc.+/,
-    ]
+    ],
   }));
 
 // Creating the database connection
@@ -43,6 +47,7 @@ mongoose.connect(mongoDB.connectionString(), {
   reconnectTries: Number.MAX_VALUE,
   useNewUrlParser: true,
 });
+mongoose.set('useCreateIndex', true);
 
 mongoose.connection.on('connected', () => {
   console.log(`Mongoose default connection open to ${mongoDB.connectionString()}`);
@@ -71,6 +76,8 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
+
+app.use('/api/v1/', UserRoutes);
 
 if (environments.NODE_ENV === 'development') {
   require('./scripts/createDocs');
