@@ -1,5 +1,6 @@
 const errorMessage = require('./errorConstants');
 const environments = require('../../config/environments');
+const { logError } = require('../../lib/misc');
 
 module.exports = () => (err, req, res, next) => {
   const error = {};
