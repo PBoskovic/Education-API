@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { emailRegExp } = require('../lib/misc');
 
 const Schema = mongoose.Schema;
+const roleTypes = ['SuperAdmin', 'Admin', 'Student'];
 
 const UserSchema = new Schema(
   {
@@ -42,6 +43,11 @@ const UserSchema = new Schema(
       required: true,
       select: false,
     },
+    role: {
+      type: 'String',
+      required: true,
+      enum: roleTypes,
+    },
     isActive: {
       type: Boolean,
       default: true,
@@ -60,4 +66,5 @@ UserSchema.pre('save', function (next) {
 
 module.exports = {
   User: mongoose.model('User', UserSchema),
+  roleTypes,
 };

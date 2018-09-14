@@ -7,6 +7,6 @@ const { authCheck } = require('../../middlewares/authCheck');
 const router = express.Router();
 
 router
-  .post('/school', authCheck, catchAsyncError(SchoolController.addSchool));
+  .post('/school', authCheck('SuperAdmin'), catchAsyncError(SchoolController.addSchool));
 
 module.exports = router;

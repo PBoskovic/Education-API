@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+const { User, roleTypes } = require('../../models');
 const faker = require('faker');
 const { issueNewToken } = require('../../lib/tokenHandler');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -25,6 +25,7 @@ async function addUser(
     schoolClass = faker.commerce.department(),
     phoneNumber = faker.phone.phoneNumber(),
     password = faker.internet.password(),
+    role = 'SuperAdmin',
   } = {}) {
   const user = await new User({
     firstName,
@@ -35,6 +36,7 @@ async function addUser(
     schoolClass,
     phoneNumber,
     password,
+    role,
   }).save();
 
   return {
@@ -66,6 +68,7 @@ function addManyUsers(
       schoolClass: faker.commerce.department(),
       phoneNumber: faker.phone.phoneNumber(),
       password: faker.internet.password(),
+      role: faker.random.arrayElement(roleTypes),
     });
   }
 

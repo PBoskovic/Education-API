@@ -21,6 +21,7 @@ const app = express();
 // Application Routes
 const UserRoutes = require('./components/user/userRouter');
 const SchoolRoutes = require('./components/school/schoolRouter');
+const AuthRoutes = require('./components/authentication/authRouter');
 
 app.use(cors());
 app.use(bodyParser.json({ limit: '20mb' }));
@@ -83,6 +84,7 @@ process.on('SIGINT', () => {
 
 app.use('/api/v1/', UserRoutes);
 app.use('/api/v1/', SchoolRoutes);
+app.use('/api/v1/', AuthRoutes);
 
 if (environments.NODE_ENV === 'development') {
   require('./scripts/createDocs');

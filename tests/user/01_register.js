@@ -5,7 +5,7 @@ const faker = require('faker');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 describe('Register', () => {
-  it('POST /register Should successfully register user', (done) => {
+  it('POST /register Should successfully register user (SuperAdmin)', (done) => {
     const body = {
       firstName: faker.name.findName(),
       lastName: faker.name.lastName(),
@@ -15,18 +15,20 @@ describe('Register', () => {
       phoneNumber: faker.phone.phoneNumber(),
       schoolClass: faker.commerce.department(),
       password: faker.internet.password(),
+      role: 'SuperAdmin',
     };
     request(app)
       .post('/api/v1/register')
       .set('Accept', 'application/json')
       .send(body)
       .expect(200)
-      .then((res) => {
-        res.body.message.should.equal('Successfully registered.');
-        res.body.results.firstName.should.equal(body.firstName);
-        res.body.results.lastName.should.equal(body.lastName);
-        res.body.results.email.should.equal(body.email);
-        should.not.exist(res.body.results.password);
+      .then(({ body: { message, results } }) => {
+        message.should.equal('Successfully registered.');
+        results.firstName.should.equal(body.firstName);
+        results.lastName.should.equal(body.lastName);
+        results.email.should.equal(body.email);
+        results.role.should.equal(body.role);
+        should.not.exist(results.password);
         done();
       })
       .catch(done);
