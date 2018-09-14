@@ -7,13 +7,22 @@ const error = require('../middlewares/errorHandling/errorConstants');
  * @param res
  * @param next
  */
-async function authCheck(req, res, next) {
+module.exports.authCheck = (...allowedRoles) => async (req, res, next) => {
   try {
+    // Finding the current logged in user
     const user = await User
       .findOne({ _id: req.user._id })
       .lean();
 
+    // Throwing error if user does not exist or inactive
     if (!user || !user.isActive) {
+      throw new Error(error.UNAUTHORIZED_ERROR);
+    }
+
+    const isAllowed = allowedRoles.includes(user.role);
+
+    // Throwing error if user current role is not allowed on this route
+    if (!isAllowed) {
       throw new Error(error.UNAUTHORIZED_ERROR);
     }
 
@@ -21,8 +30,4 @@ async function authCheck(req, res, next) {
   } catch (err) {
     return next(err);
   }
-}
-
-module.exports = {
-  authCheck,
 };

@@ -40,6 +40,30 @@ describe('Add new school', () => {
       .catch(done);
   });
 
+  it('POST /school Should throw permissions error (if Student tries to add school)', (done) => {
+    addUser({ role: 'Student' })
+      .then(({ token }) => {
+        const body = {
+          name: faker.company.companyName(),
+          address: faker.address.streetAddress(),
+          city: faker.address.city(),
+          contactNumber: faker.phone.phoneNumber(),
+        };
+        return request(app)
+          .post('/api/v1/school')
+          .set('Accept', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
+          .send(body)
+          .expect(401)
+          .then(({ body: { errorCode, message } }) => {
+            message.should.equal('Invalid credentials');
+            errorCode.should.equal(7);
+            done();
+          });
+      })
+      .catch(done);
+  });
+
   it('POST /school Should return missing parameters', (done) => {
     addUser()
       .then(({ token }) => {
