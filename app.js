@@ -20,6 +20,7 @@ const app = express();
 
 // Application Routes
 const UserRoutes = require('./components/user/userRouter');
+const SchoolRoutes = require('./components/school/schoolRouter');
 
 app.use(cors());
 app.use(bodyParser.json({ limit: '20mb' }));
@@ -39,7 +40,7 @@ app.use(expressJwt({ secret: environments.JWT_SECRET })
     path: [
       '/api/v1/register',
       '/api/v1/signin',
-      '/api/v1/forgot-password',
+      '/api/v1/reset-token',
       /\/api\/v1\/reset-password\/\w*/,
       /\/apidoc.+/,
     ],
@@ -81,6 +82,7 @@ process.on('SIGINT', () => {
 });
 
 app.use('/api/v1/', UserRoutes);
+app.use('/api/v1/', SchoolRoutes);
 
 if (environments.NODE_ENV === 'development') {
   require('./scripts/createDocs');

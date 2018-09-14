@@ -2,6 +2,7 @@ const app = require('../../app');
 const request = require('supertest');
 const should = require('chai').should();
 const faker = require('faker');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 describe('Register', () => {
   it('POST /register Should successfully register user', (done) => {
@@ -10,7 +11,7 @@ describe('Register', () => {
       lastName: faker.name.lastName(),
       age: faker.random.number({ max: 99 }),
       email: faker.internet.email().toLowerCase(),
-      school: faker.company.companyName(),
+      school: ObjectId(),
       phoneNumber: faker.phone.phoneNumber(),
       schoolClass: faker.commerce.department(),
       password: faker.internet.password(),

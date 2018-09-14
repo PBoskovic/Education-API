@@ -8,7 +8,7 @@ const { User } = require('../../models');
 describe('Signin', () => {
   it('POST /signin Should successfully sign in', (done) => {
     addUser({ password: '123' })
-      .then((user) => {
+      .then(({results: user}) => {
         const body = {
           email: user.email,
           password: '123',
