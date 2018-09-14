@@ -1,6 +1,7 @@
 const { User } = require('../../models');
 const faker = require('faker');
 const { issueNewToken } = require('../../lib/tokenHandler');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 /**
  * @param {String} firstName User first name
@@ -20,7 +21,7 @@ async function addUser(
     lastName = faker.name.lastName(),
     age = faker.random.number({ max: 99 }),
     email = faker.internet.email().toLowerCase(),
-    school = faker.company.companyName(),
+    school = ObjectId(),
     schoolClass = faker.commerce.department(),
     phoneNumber = faker.phone.phoneNumber(),
     password = faker.internet.password(),
@@ -36,7 +37,12 @@ async function addUser(
     password,
   }).save();
 
-  return user;
+  return {
+    token: issueNewToken({
+      _id: user._id,
+    }),
+    results: user,
+  };
 }
 
 /**
@@ -56,7 +62,7 @@ function addManyUsers(
       lastName: faker.name.lastName(),
       age: faker.random.number({ max: 99 }),
       email: faker.internet.email().toLowerCase(),
-      school: faker.company.companyName(),
+      school: ObjectId(),
       schoolClass: faker.commerce.department(),
       phoneNumber: faker.phone.phoneNumber(),
       password: faker.internet.password(),

@@ -143,7 +143,7 @@ module.exports.signIn = async (req, res) => {
 };
 
 /**
- * @api {post} /reset-token Forgot password
+ * @api {post} /reset-token Reset token
  * @apiVersion 1.0.1
  * @apiName generateResetToken
  * @apiDescription Sends an email with the token to reset the password
