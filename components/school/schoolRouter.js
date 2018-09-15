@@ -7,7 +7,9 @@ const { authCheck } = require('../../middlewares/authCheck');
 const router = express.Router();
 
 router
-  .post('/school', authCheck('SuperAdmin'), catchAsyncError(SchoolController.addSchool))
-  .get('/school', authCheck('SuperAdmin'), catchAsyncError(SchoolController.getAllSchools));
+  .put('/school/:schoolId', authCheck('SuperAdmin'), catchAsyncError(SchoolController.editSchool))
+  .get('/school/:schoolId', authCheck('SuperAdmin'), catchAsyncError(SchoolController.getSingleSchool))
+  .get('/school', authCheck('SuperAdmin'), catchAsyncError(SchoolController.getAllSchools))
+  .post('/school', authCheck('SuperAdmin'), catchAsyncError(SchoolController.addSchool));
 
 module.exports = router;
