@@ -34,6 +34,7 @@ async function addSchool(
 function addManySchools(
   {
     number = faker.random.number({ min: 1, max: 10 }),
+    city = faker.address.city(),
   } = {}) {
   // Generate School Data
   const data = [];
@@ -41,7 +42,7 @@ function addManySchools(
     data.push({
       name: faker.company.companyName(),
       address: faker.address.streetAddress(),
-      city: faker.address.city(),
+      city,
       contactNumber: faker.phone.phoneNumber(),
     });
   }

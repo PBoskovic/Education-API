@@ -33,4 +33,27 @@ describe('Get all schools', () => {
       .catch(done);
   });
 
+  it('GET /school Should successfully get all schools (filtered by city)', (done) => {
+    Promise.all([
+      addUser(),
+      addManySchools({ number: 5 }),
+      addManySchools({ number: 3, city: 'Belgrade' }),
+    ])
+      .then(([{ token }]) => {
+        return request(app)
+          .get('/api/v1/school?city=Belgrade')
+          .set('Accept', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
+          .expect(200)
+          .then(({ body: { results, message } }) => {
+            message.should.equal('Successfully got all schools');
+            results.length.should.equal(3);
+            const sameCity = results.every((school) => school.city === 'Belgrade');
+            sameCity.should.equal(true);
+            done();
+          });
+      })
+      .catch(done);
+  });
+
 });
