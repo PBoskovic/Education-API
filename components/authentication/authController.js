@@ -8,7 +8,7 @@ const { customShortId } = require('../../lib/misc');
  * @apiVersion 1.0.1
  * @apiName Register
  * @apiDescription Register User
- * @apiGroup User
+ * @apiGroup Authentication
  *
  * @apiParam {String} firstName First name
  * @apiParam {String} lastName Last name
@@ -73,7 +73,7 @@ module.exports.register = async (req, res) => {
  * @apiVersion 1.0.1
  * @apiName Sign in
  * @apiDescription Sign in User
- * @apiGroup User
+ * @apiGroup Authentication
  *
  * @apiParam {String} email Email
  * @apiParam {String} password Password
@@ -148,7 +148,7 @@ module.exports.signIn = async (req, res) => {
  * @apiVersion 1.0.1
  * @apiName generateResetToken
  * @apiDescription Sends an email with the token to reset the password
- * @apiGroup User
+ * @apiGroup Authentication
  *
  * @apiParam {String} email Email
  * @apiSuccessExample Success-Response:
@@ -194,7 +194,7 @@ module.exports.generateResetToken = async (req, res) => {
  * @apiVersion 1.0.1
  * @apiName resetPassword
  * @apiDescription Resets the password if the token is valid
- * @apiGroup User
+ * @apiGroup Authentication
  *
  * @apiParam {String} password New password
  * @apiParam {String} resetToken ResetToken
@@ -248,7 +248,7 @@ module.exports.resetPassword = async (req, res) => {
  * @apiVersion 1.0.1
  * @apiName changePassword
  * @apiDescription Changing password for logged in user
- * @apiGroup User
+ * @apiGroup Authentication
  *
  * @apiParam {String} oldPassword User's old password
  * @apiParam {String} newPassword User's new password to set to

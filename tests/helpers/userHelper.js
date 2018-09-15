@@ -55,6 +55,8 @@ async function addUser(
 function addManyUsers(
   {
     number = faker.random.number({ min: 1, max: 10 }),
+    role = faker.random.arrayElement(roleTypes),
+    school = ObjectId(),
   } = {}) {
   // Generate User Data
   const data = [];
@@ -64,11 +66,11 @@ function addManyUsers(
       lastName: faker.name.lastName(),
       age: faker.random.number({ max: 99 }),
       email: faker.internet.email().toLowerCase(),
-      school: ObjectId(),
+      school,
       schoolClass: faker.commerce.department(),
       phoneNumber: faker.phone.phoneNumber(),
       password: faker.internet.password(),
-      role: faker.random.arrayElement(roleTypes),
+      role,
     });
   }
 

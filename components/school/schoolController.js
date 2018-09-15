@@ -8,10 +8,10 @@ const error = require('../../middlewares/errorHandling/errorConstants');
  * @apiDescription Add new school
  * @apiGroup School
  *
- * @apiParam {String} name School name
- * @apiParam {String} address School address
- * @apiParam {String} city School city
- * @apiParam {String} contactNumber School contact
+ * @apiParam (body) {String} name School name
+ * @apiParam (body) {String} address School address
+ * @apiParam (body) {String} city School city
+ * @apiParam (body) {String} contactNumber School contact
  * @apiSuccessExample Success-Response:
  HTTP/1.1 200 OK
  {
@@ -148,7 +148,7 @@ module.exports.getAllSchools = async (req, res) => {
  * @apiDescription Get single school by id
  * @apiGroup School
  *
- * @apiParam {String} (params) schoolId Id of the School
+ * @apiParam (params) {String} schoolId Id of the School
  * @apiSuccessExample Success-Response:
  HTTP/1.1 200 OK
  {
@@ -194,11 +194,11 @@ module.exports.getSingleSchool = async (req, res) => {
  * @apiDescription Edit school with given id
  * @apiGroup School
  *
- * @apiParam {String} (params) schoolId Id of the School
- * @apiParam {String} (body) [name] School name
- * @apiParam {String} (body) [address] School address
- * @apiParam {String} (body) [city] School city
- * @apiParam {String} (body) [contactNumber] School contact
+ * @apiParam (params) {String} schoolId Id of the School
+ * @apiParam (body) {String} [name] School name
+ * @apiParam (body) {String} [address] School address
+ * @apiParam (body) {String} [city] School city
+ * @apiParam (body) {String} [contactNumber] School contact
  *
  * @apiSuccessExample Success-Response:
  HTTP/1.1 200 OK
