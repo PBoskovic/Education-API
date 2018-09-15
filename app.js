@@ -53,6 +53,7 @@ mongoose.connect(mongoDB.connectionString(), {
   useNewUrlParser: true,
 });
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 mongoose.connection.on('connected', () => {
   console.log(`Mongoose default connection open to ${mongoDB.connectionString()}`);
