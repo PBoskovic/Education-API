@@ -5,7 +5,7 @@ const faker = require('faker');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 describe('Register', () => {
-  it.only('POST /user/register Should successfully register user (Admin)', (done) => {
+  it('POST /user/register Should successfully register user (Admin)', (done) => {
     const body = {
       firstName: faker.name.findName(),
       lastName: faker.name.lastName(),
