@@ -6,7 +6,8 @@ const { authCheck } = require('../../middlewares/authCheck');
 const router = express.Router();
 
 router
-  .post('/register', catchAsyncError(AuthController.register))
+  .post('/user/register', catchAsyncError(AuthController.registerUser))
+  .post('/admin/register', catchAsyncError(AuthController.registerAdmin))
   .post('/signin', catchAsyncError(AuthController.signIn))
   .post('/reset-token', catchAsyncError(AuthController.generateResetToken))
   .post('/reset-password/:resetToken', catchAsyncError(AuthController.resetPassword))

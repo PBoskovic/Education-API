@@ -4,9 +4,9 @@ const error = require('../../middlewares/errorHandling/errorConstants');
 const bcrypt = require('bcrypt');
 const { customShortId } = require('../../lib/misc');
 /**
- * @api {post} /register Register User
+ * @api {post} /user/register (User) Register User
  * @apiVersion 1.0.1
- * @apiName Register
+ * @apiName registerUser
  * @apiDescription Register User
  * @apiGroup Authentication
  *
@@ -16,37 +16,41 @@ const { customShortId } = require('../../lib/misc');
  * @apiParam {String} email Email
  * @apiParam {String} school School of the student
  * @apiParam {String} schoolClass Class of the student
- * @apiParam {String} phoneNumber Phone number
+ * @apiParam {String} [phoneNumber] Phone number
  * @apiParam {String} password Password
  * @apiSuccessExample Success-Response:
  HTTP/1.1 200 OK
  {
-  "message":"Successfully registered.",
-  "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ",
-  "results":{
-    "isActive":true,
-    "_id":"5b9a794a2c9f483614b1398f",
-    "firstName":"Mr. Marielle Bernier",
-    "lastName":"O'Kon",
-    "age":"69",
-    "email":"freddy.weimann50@gmail.com",
-    "school":"Kuphal and Sons",
-    "schoolClass":"Grocery",
-    "phoneNumber":"1-724-133-5505 x0421",
-    "createdAt":"2018-09-13T14:50:50.117Z",
-    "updatedAt":"2018-09-13T14:50:50.117Z",
-    "__v":0
-  }
+   "message":"Successfully registered.",
+   "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+   "results":{
+      "isActive":true,
+      "_id":"5cbb775634c8ff2dd3fbb24d",
+      "firstName":"Mr. Daisha Mertz",
+      "lastName":"Wilderman",
+      "age":"35",
+      "email":"addison96@yahoo.com",
+      "school":"5cbb775634c8ff2dd3fbb24c",
+      "schoolClass":"Clothing",
+      "phoneNumber":"889-869-2679",
+      "role":"Student",
+      "createdAt":"2019-04-20T19:47:34.963Z",
+      "updatedAt":"2019-04-20T19:47:34.963Z",
+      "__v":0
+   }
 }
  * @apiUse MissingParamsError
  */
-module.exports.register = async (req, res) => {
-  const { firstName, lastName, age, email, school, schoolClass, phoneNumber, password, role } = req.body;
+module.exports.registerUser = async (req, res) => {
+  const { firstName, lastName, age, email, school, schoolClass, phoneNumber, password } = req.body;
 
-  if (!firstName || !lastName || !age || !email || !password || !role) {
+  if (!firstName || !lastName || !age || !email || !password) {
     throw new Error(error.MISSING_PARAMETERS);
   }
 
+  /**
+   * TODO: Roles should be fixed based on login
+   */
   const user = await new User({
     firstName,
     lastName,
@@ -56,8 +60,72 @@ module.exports.register = async (req, res) => {
     schoolClass,
     phoneNumber,
     password,
-    role,
+    role: 'Student',
   }).save();
+  user.password = undefined;
+
+  return res.status(200)
+    .send({
+      message: 'Successfully registered.',
+      token: issueNewToken({ _id: user._id }),
+      results: user,
+    });
+};
+
+/**
+ * @api {post} /admin/register (Admin) Register Admin
+ * @apiVersion 1.0.1
+ * @apiName registerAdmin
+ * @apiDescription Register Admin
+ * @apiGroup Authentication
+ *
+ * @apiParam {String} firstName First name
+ * @apiParam {String} lastName Last name
+ * @apiParam {String} age Age
+ * @apiParam {String} email Email
+ * @apiParam {String} school School of the Teacher
+ * @apiParam {String} [phoneNumber] Phone number
+ * @apiParam {String} password Password
+ * @apiSuccessExample Success-Response:
+ HTTP/1.1 200 OK
+ {
+   "message":"Successfully registered.",
+   "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+   "results":{
+      "isActive":true,
+      "_id":"5cbb8b914b9cc3441f7383f9",
+      "firstName":"Ms. Giles Nienow",
+      "lastName":"Skiles",
+      "age":"4",
+      "email":"toney_bayer62@yahoo.com",
+      "school":"5cbb8b914b9cc3441f7383f8",
+      "phoneNumber":"094.640.4963",
+      "role":"Teacher",
+      "createdAt":"2019-04-20T21:13:53.687Z",
+      "updatedAt":"2019-04-20T21:13:53.687Z",
+      "__v":0
+   }
+}
+ * @apiUse MissingParamsError
+ */
+module.exports.registerAdmin = async (req, res) => {
+  const { firstName, lastName, age, email, school, phoneNumber, password } = req.body;
+
+  if (!firstName || !lastName || !age || !email || !password) {
+    throw new Error(error.MISSING_PARAMETERS);
+  }
+
+  const user = await new User({
+    firstName,
+    lastName,
+    age,
+    email,
+    school,
+    phoneNumber,
+    password,
+    role: 'Teacher',
+  }).save();
+
   user.password = undefined;
 
   return res.status(200)

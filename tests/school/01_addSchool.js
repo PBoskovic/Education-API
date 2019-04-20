@@ -28,7 +28,8 @@ describe('Add new school', () => {
             results.city.should.equal(body.city);
             results.contactNumber.should.equal(body.contactNumber);
             return School.findOne({ name: body.name });
-          }).then((dbSchool) => {
+          })
+          .then((dbSchool) => {
             should.exist(dbSchool);
             dbSchool.name.should.equal(body.name);
             dbSchool.address.should.equal(body.address);
