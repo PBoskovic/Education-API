@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { emailRegExp } = require('../lib/misc');
 
 const Schema = mongoose.Schema;
-const roleTypes = ['SuperAdmin', 'Admin', 'Student'];
+const roleTypes = ['SuperAdmin', 'Admin', 'Teacher', 'Student'];
 
 const UserSchema = new Schema(
   {

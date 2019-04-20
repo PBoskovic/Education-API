@@ -39,9 +39,11 @@ app.use(lusca.xssProtection(true));
 app.use(expressJwt({ secret: environments.JWT_SECRET })
   .unless({
     path: [
-      '/api/v1/register',
+      '/api/v1/user/register',
+      '/api/v1/admin/register',
       '/api/v1/signin',
       '/api/v1/reset-token',
+      { url: '/api/v1/school', methods: ['GET'] },
       /\/api\/v1\/reset-password\/\w*/,
       /\/apidoc.+/,
     ],
