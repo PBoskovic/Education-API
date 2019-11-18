@@ -53,6 +53,7 @@ app.use(expressJwt({ secret: environments.JWT_SECRET })
 mongoose.connect(mongoDB.connectionString(), {
   reconnectTries: Number.MAX_VALUE,
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
