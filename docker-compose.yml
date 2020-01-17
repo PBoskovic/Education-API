@@ -1,23 +1,43 @@
 version: "3"
 services:
   app:
-    container_name: app
-    restart: always
+    container_name: education-api
+    restart: unless-stopped
+    env_file: config/environments/development.env
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=mongo
+      - MONGO_PORT=$MONGO_PORT
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+#    command: sh scripts/wait-for.sh mongo:27017 -- /usr/src/app/node_modules/.bin/nodemon app.js
     ports:
       - "8011:8011"
       - "8012:8012"
     links:
       - mongo
+    networks:
+      - app-network
   mongo:
     container_name: mongo
     image: mongo
+    env_file : config/environments/development.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=$${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=education_api_dev
     volumes:
+      - ./data/mongo/001_users.js:/docker-entrypoint-initdb.d/001_users.js:ro
       - ./data:/data/db
     ports:
       - "27017:27017"
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge

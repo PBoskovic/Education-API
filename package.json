@@ -8,7 +8,7 @@
     "test": "NODE_ENV=test mocha tests --timeout 8000 --recursive --exit",
     "start": "NODE_ENV=development nodemon --ignore doc/ app.js"
   },
-  "name": "Education-API",
+  "name": "education_api",
   "version": "1.0.0",
   "description": "API for web/mobile apps to improve school education system",
   "main": "app.js",

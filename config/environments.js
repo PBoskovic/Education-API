@@ -11,6 +11,11 @@ const environmentVariables = {
   JWT_SECRET: process.env.JWT_SECRET,
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,
+  MONGO_USERNAME: process.env.MONGO_USERNAME,
+  MONGO_PASSWORD: process.env.MONGO_PASSWORD,
+  MONGO_HOSTNAME: process.env.MONGO_HOSTNAME,
+  MONGO_PORT: process.env.MONGO_PORT,
+  MONGO_DB: process.env.MONGO_DB
 };
 
 /**
@@ -30,6 +35,11 @@ const getEnvVariables = () => {
     NODE_ENV: environmentVariables.NODE_ENV,
     PORT: environmentVariables.PORT,
     JWT_SECRET: environmentVariables.JWT_SECRET,
+    MONGO_USERNAME: environmentVariables.MONGO_USERNAME,
+    MONGO_PASSWORD: environmentVariables.MONGO_PASSWORD,
+    MONGO_HOSTNAME: environmentVariables.MONGO_HOSTNAME,
+    MONGO_PORT: environmentVariables.MONGO_PORT,
+    MONGO_DB: environmentVariables.MONGO_DB
   };
 };
 
