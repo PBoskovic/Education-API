@@ -11,6 +11,8 @@ services:
       - MONGO_PORT=$MONGO_PORT
     build:
       context: .
+      args:
+        DEBUG_PORT_NAME: 9229
       dockerfile: Dockerfile
     volumes:
       - .:/usr/src/app
@@ -19,6 +21,7 @@ services:
     ports:
       - "8011:8011"
       - "8012:8012"
+      - "9229:9229"
     links:
       - mongo
     networks:

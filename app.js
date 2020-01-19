@@ -54,10 +54,8 @@ mongoose.connect(mongoDB.connectionString(), {
   reconnectTries: Number.MAX_VALUE,
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  reconnectInterval: 500,
-  connectTimeoutMS: 10000
 }).then(() => {
-  console.log(`MONGODB is connected`)
+  console.log('MONGODB is connected');
 }).catch((err) => {
   console.log(err);
 });
