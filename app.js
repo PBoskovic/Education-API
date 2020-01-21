@@ -51,7 +51,6 @@ app.use(expressJwt({ secret: environments.JWT_SECRET })
 
 // Creating the database connection
 mongoose.connect(mongoDB.connectionString(), {
-  reconnectTries: Number.MAX_VALUE,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
