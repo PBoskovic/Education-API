@@ -104,3 +104,5 @@ config/environments/*
 
 #default documentation folder name used by apidoc
 doc
+
+data/

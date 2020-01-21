@@ -51,8 +51,12 @@ app.use(expressJwt({ secret: environments.JWT_SECRET })
 
 // Creating the database connection
 mongoose.connect(mongoDB.connectionString(), {
-  reconnectTries: Number.MAX_VALUE,
   useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('MONGODB is connected');
+}).catch((err) => {
+  console.log(err);
 });
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);

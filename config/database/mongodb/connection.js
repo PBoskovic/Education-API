@@ -13,10 +13,10 @@ const PROJECT_NAME = name
 module.exports.connectionString = () => {
   switch (environments.NODE_ENV) {
     case 'production':
-      return `mongodb://localhost:27017/${PROJECT_NAME}_prod`;
+      return `mongodb://${environments.MONGO_USERNAME}:${environments.MONGO_PASSWORD}@${environments.MONGO_HOSTNAME}:${environments.MONGO_PORT}/${PROJECT_NAME}_prod`;
     case 'test':
       return `mongodb://localhost:27017/${PROJECT_NAME}_test`;
     default:
-      return `mongodb://localhost:27017/${PROJECT_NAME}_dev`;
+      return `mongodb://${environments.MONGO_USERNAME}:${environments.MONGO_PASSWORD}@${environments.MONGO_HOSTNAME}:${environments.MONGO_PORT}/${PROJECT_NAME}_dev`;
   }
 };
