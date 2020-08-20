@@ -14,7 +14,7 @@
   "description": "API for web/mobile apps to improve school education system",
   "main": "app.js",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.17.2",
     "bunyan": "^1.8.12",
     "compression": "^1.7.2",
